@@ -2,243 +2,499 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#0b0d10">
-<link rel="icon" href="Avrora.jpg">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Avrora Drop</title>
+<link rel="icon" href="Avrora.jpg" type="image/jpeg">
 <style>
 :root{
- --bg:#080a0d;--panel:#0e1116;--panel2:#12161d;--line:#252b34;
- --text:#f4f6f8;--muted:#737c87;--orange:#ffad20;--green:#78e51d;
- --blue:#4e9cff;--purple:#a35cff;--pink:#df4ca8;--red:#e94b43;--gold:#d9b33f;
+  --bg:#0b0d0f;
+  --panel:#111418;
+  --panel2:#15191e;
+  --stroke:#232a30;
+  --text:#f1f4f5;
+  --muted:#777f87;
+  --green:#84ff2f;
+  --green2:#52ce22;
+  --orange:#ff9f1c;
+  --red:#bd4545;
+  --blue:#38a9ff;
+  --purple:#9c68ff;
+  --gold:#e7bb4f;
 }
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;min-height:100%;background:
- radial-gradient(circle at 50% 0,#151b22 0,#090b0e 35%,#060709 100%);
- color:var(--text);font:500 14px Inter,Arial,sans-serif}
-body{overflow-x:hidden}
-button,input{font:inherit}button{border:0;color:inherit;cursor:pointer}
-.app{max-width:1500px;margin:auto;padding:0 18px 40px}
-.top{height:68px;display:flex;align-items:center;gap:18px;border-bottom:1px solid #1c2128;
- background:rgba(7,9,12,.9);backdrop-filter:blur(18px);position:sticky;top:0;z-index:50}
-.brand{display:flex;align-items:center;gap:9px;min-width:175px;font-weight:1000;letter-spacing:.03em}
-.brand img{width:34px;height:34px;border-radius:8px;object-fit:cover;border:1px solid #3a424c}
-.brand strong{font-size:17px}.brand span{color:#818a96}
-.nav{height:100%;display:flex;gap:3px}.nav button{padding:0 16px;background:transparent;color:#7f8893;font-size:11px;font-weight:900}
-.nav button.active{color:#fff;background:#12161c;border-bottom:2px solid var(--orange)}
-.topright{margin-left:auto;display:flex;align-items:center;gap:7px}
-.pill{padding:9px 12px;border:1px solid #272e37;background:#10141a;border-radius:8px;font-weight:900;font-size:11px}
-.avatar{width:35px;height:35px;border-radius:50%;overflow:hidden;border:1px solid #38414b;background:#202630}
-.avatar img{width:100%;height:100%;object-fit:cover}
-.page{display:none}.page.active{display:block}
-.toolbar{display:flex;align-items:center;justify-content:space-between;padding:18px 0 12px}
-.tabs{display:flex;gap:5px}.tab{padding:9px 15px;border:1px solid #242b34;border-radius:7px;background:#11151a;color:#7e8791;font-size:11px;font-weight:900}
-.tab.active{background:#e99c1d;border-color:#ffb42b;color:#16120b}
-.layout{display:grid;grid-template-columns:265px minmax(500px,1fr) 265px;gap:14px}
-.side,.collection,.upgradebox,.roulette{background:rgba(12,15,20,.94);border:1px solid #222932;border-radius:9px;overflow:hidden}
-.sidehead{height:43px;padding:0 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);font-size:10px;font-weight:1000}
-.filter{padding:8px;border-bottom:1px solid #20262e}.filter input{width:100%;padding:9px;background:#080b0f;border:1px solid #252c35;border-radius:6px;color:#fff;outline:0;font-size:10px}
-.sideitems{padding:7px;display:grid;gap:5px;max-height:690px;overflow:auto}
-.sideitem{display:grid;grid-template-columns:55px 1fr auto;gap:7px;align-items:center;min-height:59px;padding:5px;background:#11151b;border:1px solid transparent;border-radius:7px;text-align:left}
-.sideitem:hover,.sideitem.selected{border-color:#414a55;background:#171c23}
-.sideitem.selected{box-shadow:inset 3px 0 var(--green)}
-.thumb{height:48px;border-radius:5px;background:linear-gradient(145deg,#1a2028,#0c1015);display:grid;place-items:center;overflow:hidden}
-.thumb img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 8px 7px #000)}
-.sideitem b{display:block;font-size:9px;line-height:1.2}.sideitem small{display:block;color:#717b86;font-size:8px;margin-top:3px}.sideprice{font-size:8px;color:#b7bec7;white-space:nowrap}
-.upgradebox{min-height:475px;padding:19px;position:relative;background:
- radial-gradient(circle at 50% 43%,rgba(92,139,39,.13),transparent 22%),
- linear-gradient(180deg,#10141a,#090c10)}
-.upgradebox:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.45;
- background-image:linear-gradient(rgba(255,255,255,.014) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.014) 1px,transparent 1px);background-size:28px 28px}
-.slots{display:grid;grid-template-columns:1fr 280px 1fr;gap:12px;align-items:center;position:relative;z-index:1}
-.slot{min-height:250px;padding:10px;background:#0b0f14;border:1px solid #252c35;border-radius:8px}
-.slothead{display:flex;justify-content:space-between;color:#737d88;font-size:9px;font-weight:900}
-.itemart{height:150px;display:grid;place-items:center}.itemart img{width:96%;height:96%;object-fit:contain;filter:drop-shadow(0 17px 15px rgba(0,0,0,.65))}
-.itemname{text-align:center;font-size:12px;font-weight:1000}.itemtype{text-align:center;color:#707987;font-size:9px;margin-top:5px}.price{text-align:center;color:#aeb5bd;font-size:10px;margin-top:9px}
-.center{text-align:center}.ring{width:250px;height:250px;margin:auto;border-radius:50%;padding:12px;position:relative;
- background:conic-gradient(var(--green) var(--progress,307deg),#272e35 0);
- box-shadow:0 0 60px rgba(120,229,29,.08);transition:filter .15s}
-.ring:after{content:"";position:absolute;inset:12px;border-radius:50%;background:#0a0e12;border:1px solid #293029;box-shadow:inset 0 0 30px #000}
-.ringinner{position:absolute;inset:35px;z-index:2;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;
- background:radial-gradient(circle,#151e13,#0a0e0c 67%);border:1px solid #203218}
-.percent{font-size:37px;font-weight:1000;color:#86e82b;line-height:1}.success{font-size:10px;color:#75c82c;font-weight:900;margin-top:8px}
-.arrow{position:absolute;left:50%;top:-8px;z-index:8;width:0;height:0;transform:translateX(-50%) rotate(0deg);transform-origin:50% 133px;
- border-left:9px solid transparent;border-right:9px solid transparent;border-top:16px solid #c5ccd3;filter:drop-shadow(0 2px 2px #000)}
-.upgradebtn{margin-top:18px;padding:14px 38px;border-radius:8px;background:linear-gradient(#ffb62c,#df8b08);color:#1c1408;font-size:12px;font-weight:1000;box-shadow:0 8px 25px rgba(255,166,25,.13)}
-.upgradebtn:disabled{opacity:.45;cursor:not-allowed}.upgradebtn:active{transform:translateY(1px)}
-.hint{color:#69737e;font-size:9px;margin-top:9px}.modebar{display:flex;justify-content:center;gap:5px;margin-top:14px}.modebar button{padding:7px 11px;background:#10151b;border:1px solid #272e37;border-radius:5px;color:#77818d;font-size:9px;font-weight:900}.modebar button.active{color:#fff;background:#181e25;border-color:#5a636d}
-.bottomgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.collection{padding:12px}
-.collectionhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:11px;font-weight:1000}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
-.card{height:103px;padding:5px;border:1px solid #252c34;border-radius:7px;background:linear-gradient(145deg,#161b21,#0c1014);position:relative;cursor:pointer;transition:.16s}
-.card:hover{transform:translateY(-1px);border-color:#46505a}.card.selected{outline:1px solid var(--green);box-shadow:0 0 15px rgba(120,229,29,.08)}
-.card img{width:100%;height:68px;object-fit:contain}.card b{display:block;font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.card small{font-size:7px;color:#727c86}
-.rarity-blue{border-bottom:2px solid var(--blue)}.rarity-purple{border-bottom:2px solid var(--purple)}.rarity-pink{border-bottom:2px solid var(--pink)}.rarity-red{border-bottom:2px solid var(--red)}.rarity-gold{border-bottom:2px solid var(--gold)}
-.roulette{padding:14px}.reel{height:175px;position:relative;overflow:hidden;background:#080b0f;border:1px solid #262d35;border-radius:7px}
-.tape{height:100%;display:flex;align-items:center;gap:7px;width:max-content;padding:13px 0;transform:translate3d(0,0,0)}
-.reel:before,.reel:after{content:"";position:absolute;z-index:3;top:0;bottom:0;width:18%;pointer-events:none}.reel:before{left:0;background:linear-gradient(90deg,#080b0f,transparent)}.reel:after{right:0;background:linear-gradient(270deg,#080b0f,transparent)}
-.pointer{position:absolute;z-index:6;left:50%;top:0;bottom:0;width:2px;background:#fff;box-shadow:0 0 18px #fff}.pointer:before{content:"";position:absolute;left:50%;top:0;transform:translateX(-50%);border-left:7px solid transparent;border-right:7px solid transparent;border-top:12px solid #fff}
-.roll{width:126px;height:145px;flex:0 0 126px;padding:7px;border:1px solid #252d37;border-radius:7px;background:#11161c;text-align:center}.roll img{width:100%;height:91px;object-fit:contain}.roll b{display:block;font-size:8px}.roll small{font-size:7px;color:#6f7884}.roll.win{box-shadow:0 0 0 1px #fff,0 0 30px rgba(255,190,40,.45)}
-.spin{width:100%;margin-top:10px;padding:13px;border-radius:7px;background:linear-gradient(#e9a01e,#c77d0d);color:#17120a;font-size:11px;font-weight:1000}
-.toast{position:fixed;z-index:100;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;pointer-events:none;padding:11px 15px;border:1px solid #3b444e;border-radius:7px;background:#171d24;font-size:10px;font-weight:900;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}
-.modal{display:none;position:fixed;inset:0;z-index:90;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.78);backdrop-filter:blur(8px)}.modal.open{display:flex}
-.modalbox{width:min(430px,100%);padding:20px;background:#10141a;border:1px solid #343c45;border-radius:10px;text-align:center}.modalbox h2{margin:0 0 7px;font-size:18px}.resultimg{height:165px}.resultimg img{width:100%;height:100%;object-fit:contain}.modalbox p{font-size:10px;color:#78828d}.modalbox button{padding:12px 25px;border-radius:7px;background:#e99b1c;color:#17120a;font-weight:1000;font-size:10px}
-.mobileNav{display:none}
-@media(max-width:1050px){.layout{grid-template-columns:220px minmax(430px,1fr)}.layout>.side:last-child{display:none}.slots{grid-template-columns:1fr 225px 1fr}.ring{width:205px;height:205px}.arrow{transform-origin:50% 110px}.ringinner{inset:29px}.percent{font-size:31px}}
-@media(max-width:800px){
- .app{padding:0 9px 30px}.top{height:58px}.nav{display:none}.brand{min-width:0}.brand strong{font-size:15px}.topright{gap:4px}.pill{padding:8px;font-size:9px}.avatar{display:none}
- .layout{display:block}.layout>.side:first-child{display:none}.upgradebox{min-height:0;padding:10px}.slots{grid-template-columns:1fr 165px 1fr;gap:6px}.slot{min-height:190px}.itemart{height:108px}.ring{width:165px;height:165px}.arrow{transform-origin:50% 89px}.ringinner{inset:23px}.percent{font-size:26px}.success{font-size:8px}.upgradebtn{padding:12px 20px;margin-top:10px}
- .bottomgrid{grid-template-columns:1fr}.grid{grid-template-columns:repeat(4,1fr)}.side.mobile{display:block;margin-top:10px}
- .mobileNav{display:flex;position:sticky;bottom:8px;z-index:60;margin:12px auto 0;max-width:430px;padding:5px;background:#10151b;border:1px solid #2b323b;border-radius:12px;box-shadow:0 10px 35px #000}
- .mobileNav button{flex:1;padding:9px 4px;background:transparent;color:#79838f;font-size:9px;font-weight:900;border-radius:8px}.mobileNav button.active{background:#1a2027;color:#fff}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,Helvetica,sans-serif}
+body{min-height:100vh;overflow-x:hidden}
+button,input{font:inherit}
+button{color:inherit}
+.app{min-height:100vh;background:
+ radial-gradient(circle at 50% 28%,rgba(54,72,63,.09),transparent 34%),
+ linear-gradient(180deg,#111315 0,#0d1012 44%,#0b0d0f 100%)}
+
+/* TOP */
+.top{
+  height:66px;display:flex;align-items:center;gap:18px;
+  padding:0 18px;border-bottom:1px solid #22272c;
+  background:linear-gradient(180deg,#191c20,#121518);
+  position:sticky;top:0;z-index:50
 }
-@media(max-width:560px){
- .toolbar{padding:11px 0}.toolbar .muted{display:none}.tabs{width:100%}.tab{flex:1;padding:9px 4px}
- .slots{grid-template-columns:1fr;max-width:430px;margin:auto}.center{order:2;margin:3px 0}.slot{min-height:155px}.itemart{height:86px}.slots>.slot:first-child{order:1}.slots>.slot:last-child{order:3}.grid{grid-template-columns:repeat(3,1fr)}
- .ring{width:175px;height:175px}.arrow{transform-origin:50% 94px}
- .collection{padding:10px}.brand span{display:none}
+.logo{display:flex;align-items:center;gap:9px;min-width:140px}
+.logo-mark{
+  width:24px;height:24px;border-radius:7px;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,#cfff63,#4ca31e);
+  color:#10220a;font-weight:1000;box-shadow:0 0 20px rgba(130,255,47,.18)
+}
+.logo b{font-size:14px;letter-spacing:.6px}
+.logo span{font-size:9px;color:#8a9299;margin-left:-5px;letter-spacing:1.1px}
+.nav{display:flex;gap:6px}
+.nav button{
+  border:1px solid transparent;background:transparent;padding:10px 14px;
+  border-radius:8px;color:#8a9298;font-weight:900;font-size:11px;cursor:pointer
+}
+.nav button:hover{background:#1a1f24;color:#fff}
+.nav button.active{background:#20262b;border-color:#2b3339;color:#fff;box-shadow:inset 0 -2px 0 rgba(130,255,47,.95)}
+.topright{margin-left:auto;display:flex;align-items:center;gap:8px}
+.badge{
+  background:#1a1f23;border:1px solid #2a3035;border-radius:8px;
+  padding:8px 11px;font-size:11px;font-weight:900
+}
+.avatar{
+  width:31px;height:31px;border-radius:50%;
+  display:grid;place-items:center;background:#242a2f;border:1px solid #3a4248;
+  font-weight:1000;color:#ddd
+}
+
+/* HERO / PROMO */
+.promo{
+  margin:9px 14px 0;border:1px solid #242a2f;border-radius:10px;
+  min-height:72px;position:relative;overflow:hidden;
+  background:
+   radial-gradient(circle at 14% 40%,rgba(130,255,47,.23),transparent 20%),
+   linear-gradient(90deg,#2a2018,#15191c 47%,#252117);
+}
+.promo:before,.promo:after{
+  content:"";position:absolute;inset:-80px auto -80px 0;width:45%;
+  background:repeating-linear-gradient(135deg,transparent 0 18px,rgba(255,255,255,.03) 18px 20px);
+  transform:skewX(-18deg)
+}
+.promo:after{left:auto;right:0;transform:skewX(18deg)}
+.promo-content{
+  position:relative;z-index:1;height:72px;display:flex;align-items:center;justify-content:center;gap:28px
+}
+.promo-big{font-weight:1000;color:#9dff41;font-size:28px;text-shadow:0 0 20px rgba(146,255,65,.2)}
+.promo-main{font-weight:1000;letter-spacing:.4px}
+.promo-small{font-size:10px;color:#8d959c}
+.pill{
+  background:#2a1717;border:1px solid #5a2323;color:#ffb4b4;padding:7px 11px;border-radius:7px;
+  font-weight:1000;font-size:11px
+}
+.promo-clock{margin-left:auto;margin-right:18px;font-family:monospace;font-weight:1000;letter-spacing:1px}
+
+/* LAYOUT */
+.page{display:none;padding:16px 14px 30px}
+.page.active{display:block}
+.layout{
+  display:grid;grid-template-columns:218px minmax(0,1fr) 218px;
+  gap:16px;align-items:start;max-width:1480px;margin:0 auto
+}
+
+/* SIDE */
+.side{
+  background:rgba(14,17,20,.92);border:1px solid var(--stroke);border-radius:11px;overflow:hidden;
+  min-height:630px
+}
+.side-head{
+  padding:13px;border-bottom:1px solid var(--stroke);
+  display:flex;justify-content:space-between;font-size:10px;font-weight:1000;letter-spacing:.7px
+}
+.side-head span:last-child{color:#7d868e}
+.search-wrap{padding:10px;border-bottom:1px solid var(--stroke)}
+.search{
+  width:100%;background:#0e1114;border:1px solid #283038;color:#e8eaec;
+  border-radius:7px;padding:9px 10px;outline:none;font-size:10px
+}
+.search:focus{border-color:#43505a}
+.items{padding:8px;display:flex;flex-direction:column;gap:7px}
+.item-row{
+  border:1px solid #262d33;border-radius:8px;padding:7px;display:grid;grid-template-columns:44px 1fr auto;
+  align-items:center;gap:8px;background:#14181c;cursor:pointer;transition:.16s
+}
+.item-row:hover{transform:translateY(-1px);border-color:#3a434a}
+.item-row.selected{border-color:#4c8031;box-shadow:inset 0 0 0 1px rgba(132,255,47,.15)}
+.thumb{
+  width:44px;height:34px;border-radius:6px;display:grid;place-items:center;
+  background:#1b2025;border:1px solid #2c353c
+}
+.thumb svg{width:36px;height:25px}
+.row-name{font-size:10px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row-sub{font-size:8px;color:#747e86;margin-top:4px}
+.price{font-size:9px;font-weight:1000;color:#d7dde1}
+.rarity{height:3px;border-radius:999px;margin-top:5px;background:#444}
+.rarity.green{background:var(--green)} .rarity.blue{background:var(--blue)}
+.rarity.purple{background:var(--purple)} .rarity.gold{background:var(--gold)}
+.rarity.red{background:#d95757}
+
+/* CENTER */
+.center{min-width:0}
+.panel{
+  background:linear-gradient(180deg,#11161a,#0f1215);
+  border:1px solid #23292f;border-radius:12px;box-shadow:0 15px 40px rgba(0,0,0,.25)
+}
+.tabs{
+  display:flex;gap:7px;margin-bottom:11px
+}
+.tabs button{
+  border:1px solid #272d32;background:#171b1f;border-radius:7px;padding:9px 16px;
+  color:#828a91;font-size:10px;font-weight:1000;cursor:pointer
+}
+.tabs button.active{background:#272c31;color:#fff;border-color:#343d45}
+
+.upgrade-panel{
+  min-height:420px;position:relative;overflow:hidden;padding:18px
+}
+.upgrade-panel:before{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(90deg,transparent 0 21%,rgba(255,255,255,.02) 21% 21.2%,transparent 21.2% 78.8%,rgba(255,255,255,.02) 78.8% 79%,transparent 79%),
+    radial-gradient(circle at 50% 52%,rgba(85,255,39,.055),transparent 26%);
+  pointer-events:none
+}
+.upgrade-grid{
+  position:relative;z-index:1;display:grid;grid-template-columns:minmax(210px,1fr) 250px minmax(210px,1fr);gap:18px;
+  align-items:center;min-height:380px
+}
+
+/* ITEM CARDS */
+.big-card{
+  background:linear-gradient(180deg,#1b1f23,#14181b);border:1px solid #2b3238;border-radius:12px;
+  min-height:265px;position:relative;overflow:hidden
+}
+.big-card:before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 35%,rgba(131,255,47,.06),transparent 36%);
+}
+.big-card.accent-green{box-shadow:0 0 0 1px rgba(97,180,47,.22),0 14px 35px rgba(0,0,0,.22)}
+.big-card.accent-red{box-shadow:0 0 0 1px rgba(199,80,80,.22),0 14px 35px rgba(0,0,0,.22)}
+.card-top{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:11px 12px;border-bottom:1px solid #292f35;font-size:9px;font-weight:1000;text-transform:uppercase
+}
+.tag{color:#7f878e}
+.state{color:#9aff43}
+.state.red{color:#f06d6d}
+.big-art{height:150px;display:grid;place-items:center;position:relative}
+.big-art svg{width:min(72%,240px);height:125px;filter:drop-shadow(0 14px 20px rgba(0,0,0,.5))}
+.item-title{font-size:13px;font-weight:1000;padding:0 13px;text-align:center}
+.item-meta{font-size:9px;color:#777f86;text-align:center;margin-top:5px}
+.card-bottom{
+  display:flex;justify-content:space-between;align-items:center;padding:10px 12px;margin-top:4px;
+  border-top:1px solid #292f35;font-size:9px;color:#8a939b
+}
+.money{font-weight:1000;color:#f0f2f3}
+.cost{font-size:9px;color:#777f86}
+
+/* RING */
+.ring-wrap{display:flex;flex-direction:column;align-items:center;gap:13px}
+.ring{
+  width:205px;height:205px;border-radius:50%;position:relative;display:grid;place-items:center;
+  background:
+   conic-gradient(from -90deg,var(--green) 0deg 305deg,#252c31 305deg 360deg);
+  box-shadow:0 0 55px rgba(111,255,46,.08),inset 0 0 35px rgba(0,0,0,.35)
+}
+.ring:before{
+  content:"";position:absolute;inset:11px;border-radius:50%;
+  background:linear-gradient(180deg,#0c1012,#11171a);border:1px solid #20292f;
+}
+.ring:after{
+  content:"";position:absolute;inset:-10px;border-radius:50%;border:1px solid rgba(255,255,255,.04)
+}
+.ring-inner{position:relative;z-index:1;text-align:center}
+.percent{font-size:34px;font-weight:1000;letter-spacing:-1px;color:#8dff44;text-shadow:0 0 18px rgba(132,255,47,.15)}
+.percent-label{font-size:9px;color:#7d878f;text-transform:uppercase;line-height:1.45;font-weight:900;margin-top:5px}
+.arrow{
+  position:absolute;top:-6px;left:50%;transform:translateX(-50%);
+  width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-top:15px solid #e8edf0;
+  filter:drop-shadow(0 2px 2px rgba(0,0,0,.8));z-index:4
+}
+.demo-btn{
+  border:1px solid #9a681c;background:linear-gradient(180deg,#ffad29,#e18712);color:white;
+  padding:13px 30px;border-radius:10px;font-weight:1000;font-size:11px;cursor:pointer;
+  box-shadow:0 9px 22px rgba(255,157,24,.16)
+}
+.demo-btn:hover{filter:brightness(1.07);transform:translateY(-1px)}
+.demo-note{font-size:8px;color:#656e75;text-align:center}
+
+/* BOTTOM */
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.collection{background:#111519;border:1px solid #232a30;border-radius:11px;padding:12px}
+.collection-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.collection-head strong{font-size:11px}
+.collection-head span{font-size:9px;color:#68727a}
+.collection-grid{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px
+}
+.mini{
+  border:1px solid #2a3137;border-radius:9px;background:#161b1f;padding:7px;cursor:pointer;min-width:0
+}
+.mini:hover{border-color:#4b545c}
+.mini.selected{border-color:#5c8f38;box-shadow:inset 0 0 0 1px rgba(132,255,47,.1)}
+.mini-art{height:70px;display:grid;place-items:center;background:#121619;border-radius:7px}
+.mini-art svg{width:82px;height:56px}
+.mini-name{font-size:8px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:7px}
+.mini-cost{font-size:8px;color:#777f86;margin-top:3px}
+.mini .rarity{margin-top:7px}
+
+/* OTHER PAGES */
+.showcase,.shop,.inventory-page{max-width:1000px;margin:0 auto}
+.showcase-grid,.shop-grid,.inventory-grid{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px
+}
+.show-card{padding:14px;border:1px solid #2a3035;border-radius:11px;background:#12171a}
+.show-card .mini-art{height:130px}
+.show-card h3{font-size:11px;margin:9px 0 0}
+.show-card p{font-size:8px;color:#737c84;margin:5px 0 0}
+.shop-price{display:inline-block;margin-top:11px;padding:7px 9px;border-radius:6px;background:#1b2328;font-size:9px;font-weight:1000;color:#baf27d}
+
+/* TOAST */
+.toast{
+  position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);
+  background:#181d21;border:1px solid #353e45;border-radius:9px;padding:10px 14px;font-size:10px;
+  opacity:0;pointer-events:none;transition:.25s;z-index:100
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* MOBILE */
+@media(max-width:1100px){
+  .layout{grid-template-columns:190px minmax(0,1fr)}
+  .layout>.side:last-child{display:none}
+  .top .nav button:nth-child(4){display:none}
+}
+@media(max-width:820px){
+  .top{height:auto;min-height:60px;flex-wrap:wrap;padding:9px 10px;gap:8px}
+  .logo{min-width:auto}
+  .nav{order:3;width:100%;overflow:auto}
+  .nav button{flex:1;white-space:nowrap}
+  .promo{margin:8px}
+  .promo-content{gap:12px;justify-content:flex-start;padding:0 14px}
+  .promo-big{font-size:22px}
+  .promo-clock{display:none}
+  .layout{grid-template-columns:1fr}
+  .layout>.side:first-child{display:none}
+  .upgrade-grid{grid-template-columns:1fr;gap:14px}
+  .ring-wrap{order:2}
+  .big-card{min-height:235px}
+  .bottom-grid{grid-template-columns:1fr}
+  .collection-grid{grid-template-columns:repeat(3,1fr)}
+  .showcase-grid,.shop-grid,.inventory-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:540px){
+  .topright .badge:nth-child(1){display:none}
+  .promo{display:none}
+  .page{padding:10px 8px 24px}
+  .upgrade-panel{padding:10px}
+  .ring{width:180px;height:180px}
+  .percent{font-size:29px}
+  .collection-grid{grid-template-columns:repeat(2,1fr)}
+  .showcase-grid,.shop-grid,.inventory-grid{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
 <body>
 <div class="app">
+
 <header class="top">
- <div class="brand"><img src="Avrora.jpg" alt="Avrora"><div><strong>AVRORA</strong> <span>DROP</span></div></div>
- <nav class="nav">
-  <button class="active" onclick="showPage('upgrade',this)">⚡ UPGRADE</button>
-  <button onclick="showPage('roulette',this)">◉ DROP</button>
-  <button onclick="showPage('inventory',this)">▦ ИНВЕНТАРЬ</button>
-  <button onclick="showPage('shop',this)">◈ МАГАЗИН</button>
- </nav>
- <div class="topright">
-  <button class="pill" id="soundBtn" onclick="toggleSound()">🔊</button>
-  <div class="pill">🪙 <span id="coins">12500</span></div>
-  <div class="pill">💎 <span id="gems">18</span></div>
-  <div class="avatar"><img src="Avrora.jpg" alt=""></div>
- </div>
+  <div class="logo">
+    <div class="logo-mark">A</div>
+    <div><b>AVRORA</b><span> DROP</span></div>
+  </div>
+
+  <nav class="nav" id="mainNav">
+    <button class="active" data-page="upgrade">⚡ UPGRADE</button>
+    <button data-page="showcase">✦ SHOWCASE</button>
+    <button data-page="inventory">🎒 ИНВЕНТАРЬ</button>
+    <button data-page="shop">🛒 МАГАЗИН</button>
+  </nav>
+
+  <div class="topright">
+    <div class="badge">🪙 <span id="coins">12 500</span></div>
+    <div class="badge">💎 <span id="gems">18</span></div>
+    <div class="avatar">U</div>
+  </div>
 </header>
 
-<section id="upgrade" class="page active">
- <div class="toolbar">
-  <div class="tabs"><button class="tab active">⚡ Upgrade</button><button class="tab" onclick="showPage('roulette')">◉ Drop</button></div>
-  <div class="muted" style="font-size:10px;color:#707a85">AVRORA DROP · VIRTUAL COLLECTIBLES</div>
- </div>
- <div class="layout">
-  <aside class="side">
-   <div class="sidehead"><span>ТВОИ ПРЕДМЕТЫ</span><span id="invCount">0</span></div>
-   <div class="filter"><input id="search" placeholder="Поиск предмета..." oninput="renderSide()"></div>
-   <div class="sideitems" id="sideitems"></div>
-  </aside>
-  <main class="center">
-   <div class="upgradebox">
-    <div class="slots">
-     <div class="slot" id="fromSlot"></div>
-     <div class="center">
-      <div class="ring" id="ring">
-       <div class="arrow" id="arrow"></div>
-       <div class="ringinner"><div class="percent" id="percent">85.3%</div><div class="success">ДЕМО<br>НАВИГАЦИЯ</div></div>
-      </div>
-      <button class="upgradebtn" id="upgradeBtn" onclick="previewUpgrade()">ПОКАЗАТЬ АНИМАЦИЮ →</button>
-      <div class="hint">Демо-анимация: стрелка показывает выбранную цель</div>
-      <div class="modebar">
-       <button class="active" onclick="playClick()">85.3%</button>
-       <button onclick="playClick()">70%</button>
-       <button onclick="playClick()">55%</button>
-       <button onclick="playClick()">35%</button>
-      </div>
-     </div>
-     <div class="slot" id="toSlot"></div>
+<div class="promo">
+  <div class="promo-content">
+    <div class="promo-big">+20%</div>
+    <div>
+      <div class="promo-main">AVRORA BONUS</div>
+      <div class="promo-small">ДЕМО-КОЛЛЕКЦИЯ · БЕЗ ПОКУПОК</div>
     </div>
-   </div>
-   <div class="bottomgrid">
-    <div class="collection"><div class="collectionhead"><span>🪙 МОИ ПРЕДМЕТЫ</span><span style="font-size:9px;color:#737d88">выбери</span></div><div class="grid" id="mySkins"></div></div>
-    <div class="collection"><div class="collectionhead"><span>⚡ ВЫБЕРИ ЦЕЛЬ</span><span style="font-size:9px;color:#737d88">дороже текущего</span></div><div class="grid" id="targets"></div></div>
-   </div>
-  </main>
-  <aside class="side">
-   <div class="sidehead"><span>★ ТОП ПРЕДМЕТЫ</span><span>10</span></div>
-   <div class="sideitems" id="topitems"></div>
-  </aside>
- </div>
-</section>
-
-<section id="roulette" class="page">
- <div class="toolbar"><div><b>◉ DROP SHOWCASE</b><div style="font-size:9px;color:#727c87;margin-top:3px">Визуальная лента предметов без ставок и случайных наград</div></div></div>
- <div class="roulette"><div class="reel"><div class="pointer"></div><div class="tape" id="tape"></div></div>
- <button class="spin" id="spinBtn" onclick="showcaseSpin()">ЗАПУСТИТЬ ДЕМО-АНИМАЦИЮ</button>
- <div id="rollStatus" style="text-align:center;margin-top:8px;font-size:9px;color:#737d88">Нажмите кнопку для анимации.</div></div>
-</section>
-
-<section id="inventory" class="page">
- <div class="toolbar"><b>▦ ИНВЕНТАРЬ</b></div>
- <div class="collection"><div class="grid" id="fullInv"></div></div>
-</section>
-
-<section id="shop" class="page">
- <div class="toolbar"><b>◈ КАТАЛОГ</b></div>
- <div class="collection"><div class="grid" id="shopGrid"></div></div>
-</section>
-
-<div class="mobileNav">
- <button class="active" onclick="showPage('upgrade',this)">⚡<br>Upgrade</button>
- <button onclick="showPage('roulette',this)">◉<br>Drop</button>
- <button onclick="showPage('inventory',this)">▦<br>Инвентарь</button>
- <button onclick="showPage('shop',this)">◈<br>Магазин</button>
-</div>
+    <div class="pill">SHOWCASE</div>
+    <div class="promo-clock" id="clock">00 : 04 : 31 : 19</div>
+  </div>
 </div>
 
-<div class="modal" id="modal"><div class="modalbox"><h2 id="modalTitle"></h2><div class="resultimg" id="resultImg"></div><p id="modalText"></p><button onclick="closeModal()">ЗАКРЫТЬ</button></div></div>
+<section class="page active" id="upgrade">
+  <div class="layout">
+    <aside class="side">
+      <div class="side-head"><span>МОИ ПРЕДМЕТЫ</span><span id="invCount">8</span></div>
+      <div class="search-wrap">
+        <input class="search" id="search" placeholder="Поиск предмета...">
+      </div>
+      <div class="items" id="leftItems"></div>
+    </aside>
+
+    <main class="center">
+      <div class="tabs">
+        <button class="active">✎ UPGRADE</button>
+        <button id="altTab">▦ SHOWCASE</button>
+      </div>
+
+      <div class="panel upgrade-panel">
+        <div class="upgrade-grid">
+
+          <div class="big-card accent-green" id="fromCard"></div>
+
+          <div class="ring-wrap">
+            <div class="ring" id="ring">
+              <div class="arrow"></div>
+              <div class="ring-inner">
+                <div class="percent">85.3%</div>
+                <div class="percent-label">DEMO STATUS<br>AVRORA POWER</div>
+              </div>
+            </div>
+            <button class="demo-btn" id="upgradeBtn">ЗАПУСТИТЬ АНИМАЦИЮ →</button>
+            <div class="demo-note">Визуальная демо-анимация. Без ставок и случайных выигрышей.</div>
+          </div>
+
+          <div class="big-card accent-red" id="toCard"></div>
+
+        </div>
+      </div>
+
+      <div class="bottom-grid">
+        <div class="collection">
+          <div class="collection-head">
+            <strong>🟢 МОИ ПРЕДМЕТЫ</strong>
+            <span>выбери предмет</span>
+          </div>
+          <div class="collection-grid" id="myGrid"></div>
+        </div>
+
+        <div class="collection">
+          <div class="collection-head">
+            <strong>⚡ ВЫБЕРИ ЦЕЛЬ</strong>
+            <span>визуальная цель</span>
+          </div>
+          <div class="collection-grid" id="targetGrid"></div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="side">
+      <div class="side-head"><span>⭐ ТЕМНЫЕ КОЛЛЕКЦИИ</span><span>8</span></div>
+      <div class="items" id="rightItems"></div>
+    </aside>
+  </div>
+</section>
+
+<section class="page" id="showcase">
+  <div class="showcase">
+    <div class="panel" style="padding:16px">
+      <div class="collection-head">
+        <strong>✦ SHOWCASE</strong>
+        <span>визуальная витрина</span>
+      </div>
+      <div class="showcase-grid" id="showcaseGrid"></div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="inventory">
+  <div class="inventory-page">
+    <div class="panel" style="padding:16px">
+      <div class="collection-head">
+        <strong>🎒 ИНВЕНТАРЬ</strong>
+        <span id="fullCount">8 предметов</span>
+      </div>
+      <div class="inventory-grid" id="inventoryGrid"></div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="shop">
+  <div class="shop">
+    <div class="panel" style="padding:16px">
+      <div class="collection-head">
+        <strong>🛒 МАГАЗИН</strong>
+        <span>только бесплатные визуальные предметы</span>
+      </div>
+      <div class="shop-grid" id="shopGrid"></div>
+    </div>
+  </div>
+</section>
+
 <div class="toast" id="toast"></div>
-
-<audio id="ticAudio" src="Tic.mp3" preload="auto"></audio>
-<audio id="clickAudio" src="Click.mp3" preload="auto"></audio>
+</div>
 
 <script>
-/* Avrora Drop — local demo. Audio files are expected beside index.html. */
-const FALLBACK_IMG="https://raw.githubusercontent.com/ByMykel/counter-strike-image-tracker/main/static/panorama/images/econ/default_generated/weapon_ak47_cu_ak47_cobra_light_png.png";
-const items=[
- {id:1,name:"Crimson Nova",rarity:"red",type:"Collectible",price:18500,img:"https://dummyimage.com/500x300/8b1717/ffffff.png&text=CRIMSON+NOVA"},
- {id:2,name:"Ocean Pulse",rarity:"blue",type:"Collectible",price:9200,img:"https://dummyimage.com/500x300/155d8f/ffffff.png&text=OCEAN+PULSE"},
- {id:3,name:"Neon Mirage",rarity:"pink",type:"Collectible",price:6200,img:"https://dummyimage.com/500x300/8a2470/ffffff.png&text=NEON+MIRAGE"},
- {id:4,name:"Golden Crown",rarity:"gold",type:"Special",price:250000,img:"https://dummyimage.com/500x300/9b7a17/ffffff.png&text=GOLDEN+CROWN"},
- {id:5,name:"Aurora Prism",rarity:"gold",type:"Special",price:375000,img:"https://dummyimage.com/500x300/5e3d98/ffffff.png&text=AURORA+PRISM"},
- {id:6,name:"Purple Rush",rarity:"purple",type:"Collectible",price:10500,img:"https://dummyimage.com/500x300/562b86/ffffff.png&text=PURPLE+RUSH"},
- {id:7,name:"Emerald Core",rarity:"blue",type:"Collectible",price:11200,img:"https://dummyimage.com/500x300/287d50/ffffff.png&text=EMERALD+CORE"},
- {id:8,name:"Solar Flare",rarity:"red",type:"Collectible",price:7800,img:"https://dummyimage.com/500x300/a34d17/ffffff.png&text=SOLAR+FLARE"},
- {id:9,name:"Violet Dream",rarity:"purple",type:"Collectible",price:4500,img:"https://dummyimage.com/500x300/5b347c/ffffff.png&text=VIOLET+DREAM"},
- {id:10,name:"Silver Edge",rarity:"blue",type:"Collectible",price:3300,img:"https://dummyimage.com/500x300/56606a/ffffff.png&text=SILVER+EDGE"},
- {id:11,name:"Pink Galaxy",rarity:"pink",type:"Collectible",price:15800,img:"https://dummyimage.com/500x300/aa3d78/ffffff.png&text=PINK+GALAXY"},
- {id:12,name:"Black Aurora",rarity:"red",type:"Collectible",price:28500,img:"https://dummyimage.com/500x300/25252b/ffffff.png&text=BLACK+AURORA"}
-];
-const rarityName={blue:"Standard",purple:"Restricted",pink:"Premium",red:"Elite",gold:"★ Special"};
-let state=JSON.parse(localStorage.getItem("avroraDrop")||"null")||{coins:12500,gems:18,inv:[2,3,6,7],selected:2,target:1};
-let chance=85.3,soundOn=true,rolling=false;
+(function(){
+  "use strict";
 
-const $=id=>document.getElementById(id), get=id=>items.find(x=>x.id===id);
-const fmt=n=>Number(n).toLocaleString("ru-RU").replace(/\u00a0/g," ");
-function save(){localStorage.setItem("avroraDrop",JSON.stringify(state))}
-function playClick(){
- if(!soundOn)return;
- const a=$("clickAudio"); a.currentTime=0; a.play().catch(()=>{});
-}
-function playTick(){
- if(!soundOn)return;
- const a=$("ticAudio"); a.currentTime=0; a.play().catch(()=>{});
-}
-function toggleSound(){soundOn=!soundOn;$("soundBtn").textContent=soundOn?"🔊":"🔇";playClick()}
-function showPage(id,btn){
- document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));
- document.querySelectorAll(".nav button,.mobileNav button").forEach(b=>b.classList.remove("active"));
- if(btn)btn.classList.add("active");
- document.querySelectorAll(".nav button,.mobileNav button").forEach(b=>{
-   if((b.getAttribute("onclick")||"").includes("'"+id+"'"))b.classList.add("active");
- });
- playClick();
-}
-function img(s){return `<img src="${s.img}" alt="${s.name}" loading="lazy" onerror="this.src='${FALLBACK_IMG}'">`}
-function sideCard(s,selected=false){return `<button class="sideitem ${selected?"selected":""}" onclick="selectItem(${s.id})"><div class="thumb">${img(s)}</div><div><b>${s.name}</b><small>${rarityName[s.rarity]}</small></div><span class="sideprice">${fmt(s.price)} 🪙</span></button>`}
-function renderSide(){
- const q=($("search")?.value||"").toLowerCase();
- $("sideitems").innerHTML=state.inv.map(get).filter(Boolean).filter(s=>s.name.toLowerCase().includes(q)).map(s=>sideCard(s,s.id===state.selected)).join("")||"<div style='padding:12px;color:#737d88;font-size:9px'>Предметов нет</div>";
-}
-function renderTop(){$("topitems").in
+  const data = [
+    {id:1,name:"Crimson Core",type:"Collector",price:9600,rarity:"red",shape:"blade"},
+    {id:2,name:"Neon Pulse",type:"Collector",price:7800,rarity:"purple",shape:"rifle"},
+    {id:3,name:"Aqua Circuit",type:"Collector",price:6300,rarity:"blue",shape:"carbine"},
+    {id:4,name:"Solar Burst",type:"Collector",price:5400,rarity:"gold",shape:"pistol"},
+    {id:5,name:"Violet Flux",type:"Collector",price:4200,rarity:"purple",shape:"smg"},
+    {id:6,name:"Lime Reactor",type:"Collector",price:3300,rarity:"green",shape:"core"},
+    {id:7,name:"Ice Signal",type:"Collector",price:2700,rarity:"blue",shape:"smg"},
+    {id:8,name:"Ember Chip",type:"Collector",price:1900,rarity:"green",shape:"core"},
+    {id:9,name:"Night Vector",type:"Collector",price:1500,rarity:"blue",shape:"rifle"},
+    {id:10,name:"Aurora Node",type:"Collector",price:900,rarity:"green",shape:"core"},
+    {id:11,name:"Nova Frame",type:"Collector",price:750,rarity:"purple",shape:"carbine"},
+    {id:12,name:"Solar Grid",type:"Collector",price:620,rarity:"gold",shape:"core"}
+  ];
+
+  let state = {selected:2,target:1,owned:[2,3,4,5,6,7,8,10]};
+  let demoSound = true;
+  let audioCtx = null;
+
+  const $ = id => document.getElementById(id);
+  const get = id => data.find(x => x.id === id) || data[0];
+  const fmt = n => Number(n).toLocaleString("ru-RU").replace(/\u00A0/g," ");
+
+  function svgIcon(item){
+    const fills = {
+      green:"#7ff134",blue:"#44b6ff",purple:"#9f6dff",gold:"#e5bb55",red:"#db5b5b"
+    };
+    const c = fills[item.rarity] || "#7ff134";
+    const c2 = "#d7dde0";
+    let body = "";
+    if(item.shape==="core"){
+      body = '<circle cx="50" cy="35" r="18" fill="'+c+'" opacity=".9"/><circle cx="50" cy="35" r="8" fill="#101417"/><path d="M20 35h18M62 35h18M50 5v14M50 51v14" stroke="'+c2+'" stroke-width="5" stroke-linecap="round"/>';
+    }else if(item.shape==="blade"){
+      body = '<path d="M18 44 C32 35 43 22 78 14 L67 30 C51 41 38 49 24 52 Z" fill="'+c+'"/><rect x="13" y="44" width="18" height="8" rx="3" fill="'+c2+'"/><circle cx="28" cy="48" r="3" fill="#101417"/>';
+    }else if(item.shape==="rifle"){
+      body = '<rect x="13" y="31" width="55" height="10" rx="4" fill="'+c+'"/><rect x="67" y="34" width="18" height="4" rx="2" fill="'+c2+'"/><path d="M25 41l7 12h7l-2-12M58 41l-8 14h-7l2-14" fill="'+c2+'"/>';
+    }else if(item.shape==="carbine"){
+      body = '<rect x="16" y="30" width="46" height="11" rx="4" fill="'+c+'"/><rect x="59" y="33" width="20" height="5" rx="2" fill="'+c2+'"/><path d="M26 41l5 11h7l-1-11M50 41l-6 12" stroke="'+c2+'" stroke-width="6" stroke-linecap="round"/>';
+    }else{
+      body = '<rect x="23" y="28" width="40" height="13" rx="4" fill="'+c+'"/><rect x="61" y="32" width="20" height="5" rx="2" fill="'+c2+'"/><path d="M31 41l2 16h8l2-16" fill="'+c2+'"/>';
+    }
+    return '<svg viewBox="0 0 100 70" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+
+      '<defs><filter id="glow'+item.id+'"><feGaussianBlur stdDeviation="3" result="b"/><merge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></merge></filter></defs>'+
+      '<g filter="url(#glow'+item.id+')">'+body+'</g></svg>';
+  }
+
+  function row(item, selected){
+    return '<div class="item-row '+(selected?'selected':'')+'" data-id="'+item.id+'">'+
+      '<div class="thumb">'+svgIcon(item)+'</div>'+
+      '<div><div class="row-name">'+item.name+'</div><div class="row-sub">'+item.type+'</div><div class="rarity '+item.rarity+'"></div></div>'+
+      '<div class="price">'+fmt(item.price)+'</div>'+
+    '</div>';
+  }
+
+  function bigCard(item, target){
+    const status = target ? "TARGET" : "SELECTED";
+    
